@@ -97,14 +97,12 @@ describe('_Community Tests', () => {
         menu: [
           ...data.menu,
           {
-            // array: [{ text: 'asd' }],
+            array: [{ text: 'asd' }],
           },
         ],
       },
     })
 
     expect(upd.menu).toHaveLength(2)
-
-    console.log(ObjectId)
   })
 })

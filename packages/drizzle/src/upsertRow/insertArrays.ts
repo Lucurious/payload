@@ -53,7 +53,9 @@ export const insertArrays = async ({ adapter, arrays, db, parentRows }: Args): P
           arrayRowLocaleData._locale = arrayRowLocale
           rowsByTable[tableName].locales.push(arrayRowLocaleData)
           if (!arrayRow.row.id) {
-            arrayRowLocaleData._getParentID = (rows) => rows[i].id
+            arrayRowLocaleData._getParentID = (rows) => {
+              return rows[i].id
+            }
           }
         })
       })
