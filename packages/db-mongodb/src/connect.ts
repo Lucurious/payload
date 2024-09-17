@@ -26,6 +26,7 @@ export const connect: Connect = async function connect(
   const connectionOptions: { useFacet: undefined } & ConnectOptions = {
     autoIndex: true,
     ...this.connectOptions,
+    autoCreate: false,
     useFacet: undefined,
   }
 
@@ -36,8 +37,8 @@ export const connect: Connect = async function connect(
   try {
     this.connection = (await mongoose.connect(urlToConnect, connectionOptions)).connection
     await this.connection.db.admin().command({
-      setParameter: 1,
       maxTransactionLockRequestTimeoutMillis: 10000,
+      setParameter: 1,
     })
 
     // If we are running a replica set with MongoDB Memory Server,
