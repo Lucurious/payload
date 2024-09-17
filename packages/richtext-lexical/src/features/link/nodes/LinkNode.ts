@@ -8,10 +8,10 @@ import type {
   LexicalNode,
   NodeKey,
   RangeSelection,
-} from 'lexical'
+} from 'lexical';
 
-import { addClassNamesToElement, isHTMLAnchorElement } from '@lexical/utils'
-import ObjectID from 'bson-objectid'
+import { addClassNamesToElement, isHTMLAnchorElement } from '@lexical/utils';
+import { ObjectId } from 'bson';
 import {
   $applyNodeReplacement,
   $createTextNode,
@@ -20,10 +20,10 @@ import {
   $isRangeSelection,
   createCommand,
   ElementNode,
-} from 'lexical'
+} from 'lexical';
 
-import type { LinkPayload } from '../client/plugins/floatingLinkEditor/types.js'
-import type { LinkFields, SerializedLinkNode } from './types.js'
+import type { LinkPayload } from '../client/plugins/floatingLinkEditor/types.js';
+import type { LinkFields, SerializedLinkNode } from './types.js';
 
 const SUPPORTED_URL_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'sms:', 'tel:'])
 
@@ -83,7 +83,7 @@ export class LinkNode extends ElementNode {
     }
 
     if (serializedNode.version === 2 && !serializedNode.id) {
-      serializedNode.id = new ObjectID.default().toHexString()
+      serializedNode.id = new ObjectId().toHexString()
       serializedNode.version = 3
     }
 
@@ -237,7 +237,7 @@ function $convertAnchorElement(domNode: Node): DOMConversionOutput {
     const content = domNode.textContent
     if (content !== null && content !== '') {
       node = $createLinkNode({
-        id: new ObjectID.default().toHexString(),
+        id: new ObjectId().toHexString(),
         fields: {
           doc: null,
           linkType: 'custom',
@@ -253,7 +253,7 @@ function $convertAnchorElement(domNode: Node): DOMConversionOutput {
 export function $createLinkNode({ id, fields }: { fields: LinkFields; id?: string }): LinkNode {
   return $applyNodeReplacement(
     new LinkNode({
-      id: id ?? new ObjectID.default().toHexString(),
+      id: id ?? new ObjectId().toHexString(),
       fields,
     }),
   )

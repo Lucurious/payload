@@ -3,7 +3,7 @@ import type { SerializedDecoratorBlockNode } from '@lexical/react/LexicalDecorat
 import type { DOMConversionMap, DOMConversionOutput, LexicalNode, Spread } from 'lexical'
 import type { JSX } from 'react'
 
-import ObjectID from 'bson-objectid'
+import { ObjectId } from 'bson'
 import { $applyNodeReplacement } from 'lexical'
 import * as React from 'react'
 
@@ -71,7 +71,7 @@ export class UploadNode extends UploadServerNode {
       serializedNode.value = (serializedNode.value as unknown as { id: string }).id
     }
     if (serializedNode.version === 2 && !serializedNode?.id) {
-      serializedNode.id = new ObjectID.default().toHexString()
+      serializedNode.id = new ObjectId().toHexString()
       serializedNode.version = 3
     }
 
@@ -103,7 +103,7 @@ export function $createUploadNode({
   data: Omit<UploadData, 'id'> & Partial<Pick<UploadData, 'id'>>
 }): UploadNode {
   if (!data?.id) {
-    data.id = new ObjectID.default().toHexString()
+    data.id = new ObjectId().toHexString()
   }
   return $applyNodeReplacement(new UploadNode({ data: data as UploadData }))
 }

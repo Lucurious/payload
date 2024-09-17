@@ -1,3 +1,4 @@
+import type { Schema } from 'mongoose'
 import type { Field, Payload, Where } from 'payload'
 
 import { QueryError } from 'payload'
@@ -22,7 +23,7 @@ export const getBuildQueryPlugin = ({
   collectionSlug,
   versionsFields,
 }: GetBuildQueryPluginArgs = {}) => {
-  return function buildQueryPlugin(schema) {
+  return function buildQueryPlugin(schema: Schema) {
     const modifiedSchema = schema
     async function buildQuery({
       globalSlug,

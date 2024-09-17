@@ -1,8 +1,17 @@
 {
   "name": "jest-payload",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn build:server && yarn build:payload",
+    "build:payload": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
+    "build:server": "tsc",
+    "dev": "nodemon",
+    "generate:types": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
+    "serve": "PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
+    "test": "jest --forceExit --detectOpenHandles"
+  },
   "dependencies": {
     "@payloadcms/bundler-webpack": "^1.0.5",
     "@payloadcms/db-mongodb": "^1.1.0",
@@ -17,18 +26,9 @@
     "@swc/jest": "^0.2.29",
     "@types/jest": "^29.5.4",
     "jest": "^29.7.0",
-    "mongodb-memory-server": "^8.15.1",
+    "mongodb-memory-server": "10.0.0",
     "nodemon": "^3.0.1",
     "ts-node": "10.9.1",
     "typescript": "^5.2.2"
-  },
-  "scripts": {
-    "generate:types": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:types",
-    "dev": "nodemon",
-    "build:payload": "PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
-    "build:server": "tsc",
-    "build": "yarn build:server && yarn build:payload",
-    "serve": "PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
-    "test": "jest --forceExit --detectOpenHandles"
   }
 }

@@ -1,8 +1,5 @@
 import Ajv from 'ajv'
-import ObjectIdImport from 'bson-objectid'
-
-const ObjectId = (ObjectIdImport.default ||
-  ObjectIdImport) as unknown as typeof ObjectIdImport.default
+import { ObjectId } from 'bson'
 
 import type { RichTextAdapter } from '../admin/types.js'
 import type { CollectionSlug } from '../index.js'

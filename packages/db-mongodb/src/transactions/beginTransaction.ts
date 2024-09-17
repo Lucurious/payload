@@ -25,7 +25,7 @@ export const beginTransaction: BeginTransaction = async function beginTransactio
   if (this.sessions[id].inTransaction()) {
     this.payload.logger.warn('beginTransaction called while transaction already exists')
   } else {
-    this.sessions[id].startTransaction(options || (this.transactionOptions as TransactionOptions))
+    this.sessions[id].startTransaction(options || (this.transactionOptions as any))
   }
 
   return id

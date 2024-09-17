@@ -12,9 +12,8 @@ import type { CollectionSlug, DataFromCollectionSlug, JsonObject } from 'payload
 import type { JSX } from 'react'
 
 import { DecoratorBlockNode } from '@lexical/react/LexicalDecoratorBlockNode.js'
-import ObjectID from 'bson-objectid'
+import { ObjectId } from 'bson'
 import { $applyNodeReplacement } from 'lexical'
-import * as React from 'react'
 
 export type UploadData<TUploadExtraFieldsData extends JsonObject = JsonObject> = {
   [TCollectionSlug in CollectionSlug]: {
@@ -111,7 +110,7 @@ export class UploadServerNode extends DecoratorBlockNode {
       serializedNode.value = (serializedNode.value as unknown as { id: string }).id
     }
     if (serializedNode.version === 2 && !serializedNode?.id) {
-      serializedNode.id = new ObjectID.default().toHexString()
+      serializedNode.id = new ObjectId().toHexString()
       serializedNode.version = 3
     }
 
@@ -174,7 +173,7 @@ export function $createUploadServerNode({
   data: Omit<UploadData, 'id'> & Partial<Pick<UploadData, 'id'>>
 }): UploadServerNode {
   if (!data?.id) {
-    data.id = new ObjectID.default().toHexString()
+    data.id = new ObjectId().toHexString()
   }
   return $applyNodeReplacement(new UploadServerNode({ data: data as UploadData }))
 }

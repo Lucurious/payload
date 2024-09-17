@@ -11,7 +11,7 @@ import type {
 import type React from 'react'
 import type { JSX } from 'react'
 
-import ObjectID from 'bson-objectid'
+import { ObjectId } from 'bson'
 import { DecoratorNode } from 'lexical'
 import { deepCopyObjectSimple } from 'payload/shared'
 
@@ -125,7 +125,7 @@ export function $createServerInlineBlockNode(
   return new ServerInlineBlockNode({
     fields: {
       ...fields,
-      id: fields?.id || new ObjectID.default().toHexString(),
+      id: fields?.id || new ObjectId().toHexString(),
     },
   })
 }

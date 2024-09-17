@@ -51,9 +51,7 @@ import {
   tabsFieldsSlug,
   textFieldsSlug,
   uiSlug,
-  uploads2Slug,
   uploadsMulti,
-  uploadsMultiPoly,
   uploadsPoly,
   uploadsSlug,
   usersSlug,
@@ -66,14 +64,7 @@ export const seed = async (_payload: Payload) => {
   if (_payload.db.name === 'mongoose') {
     await Promise.all(
       _payload.config.collections.map(async (coll) => {
-        await new Promise((resolve, reject) => {
-          _payload.db?.collections[coll.slug]?.ensureIndexes(function (err) {
-            if (err) {
-              reject(err)
-            }
-            resolve(true)
-          })
-        })
+        await _payload.db.collections[coll.slug].ensureIndexes()
       }),
     )
   }

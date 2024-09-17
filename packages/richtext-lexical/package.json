@@ -64,7 +64,7 @@
     "@payloadcms/translations": "workspace:*",
     "@payloadcms/ui": "workspace:*",
     "@types/uuid": "10.0.0",
-    "bson-objectid": "2.0.4",
+    "bson": "^6.8.0",
     "dequal": "2.0.3",
     "escape-html": "1.0.3",
     "lexical": "0.17.0",

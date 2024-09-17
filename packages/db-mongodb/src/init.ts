@@ -23,15 +23,19 @@ export const init: Init = function init(this: MongooseAdapter) {
 
       const versionCollectionFields = buildVersionCollectionFields(this.payload.config, collection)
 
-      const versionSchema = buildSchema(this.payload.config, versionCollectionFields, {
-        disableUnique: true,
-        draftsEnabled: true,
-        indexSortableFields: this.payload.config.indexSortableFields,
-        options: {
-          minimize: false,
-          timestamps: false,
+      const versionSchema = buildSchema<any, CollectionModel>(
+        this.payload.config,
+        versionCollectionFields,
+        {
+          disableUnique: true,
+          draftsEnabled: true,
+          indexSortableFields: this.payload.config.indexSortableFields,
+          options: {
+            minimize: false,
+            timestamps: false,
+          },
         },
-      })
+      )
 
       versionSchema.plugin<any, PaginateOptions>(paginate, { useEstimatedCount: true }).plugin(
         getBuildQueryPlugin({
@@ -40,20 +44,20 @@ export const init: Init = function init(this: MongooseAdapter) {
         }),
       )
 
-      const model = mongoose.model(
+      const model = mongoose.model<any, CollectionModel>(
         versionModelName,
         versionSchema,
         this.autoPluralization === true ? undefined : versionModelName,
-      ) as CollectionModel
+      )
       // this.payload.versions[collection.slug] = model;
       this.versions[collection.slug] = model
     }
 
-    const model = mongoose.model(
+    const model = mongoose.model<any, CollectionModel>(
       getDBName({ config: collection }),
       schema,
       this.autoPluralization === true ? undefined : collection.slug,
-    ) as CollectionModel
+    )
     this.collections[collection.slug] = model
   })
 
@@ -66,25 +70,29 @@ export const init: Init = function init(this: MongooseAdapter) {
 
       const versionGlobalFields = buildVersionGlobalFields(this.payload.config, global)
 
-      const versionSchema = buildSchema(this.payload.config, versionGlobalFields, {
-        disableUnique: true,
-        draftsEnabled: true,
-        indexSortableFields: this.payload.config.indexSortableFields,
-        options: {
-          minimize: false,
-          timestamps: false,
+      const versionSchema = buildSchema<any, CollectionModel>(
+        this.payload.config,
+        versionGlobalFields,
+        {
+          disableUnique: true,
+          draftsEnabled: true,
+          indexSortableFields: this.payload.config.indexSortableFields,
+          options: {
+            minimize: false,
+            timestamps: false,
+          },
         },
-      })
+      )
 
       versionSchema
         .plugin<any, PaginateOptions>(paginate, { useEstimatedCount: true })
         .plugin(getBuildQueryPlugin({ versionsFields: versionGlobalFields }))
 
-      const versionsModel = mongoose.model(
+      const versionsModel = mongoose.model<any, CollectionModel>(
         versionModelName,
         versionSchema,
         versionModelName,
-      ) as CollectionModel
+      )
       this.versions[global.slug] = versionsModel
     }
   })

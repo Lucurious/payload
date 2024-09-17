@@ -1,16 +1,13 @@
 'use client'
 import type { FormField, FormState, Row } from 'payload'
 
-import ObjectIdImport from 'bson-objectid'
+import { ObjectId } from 'bson'
 import { dequal } from 'dequal/lite' // lite: no need for Map and Set support
 import { deepCopyObject, deepCopyObjectSimple } from 'payload/shared'
 
 import type { FieldAction } from './types.js'
 
 import { flattenRows, separateRows } from './rows.js'
-
-const ObjectId = (ObjectIdImport.default ||
-  ObjectIdImport) as unknown as typeof ObjectIdImport.default
 
 /**
  * Reducer which modifies the form field state (all the current data of the fields in the form). When called using dispatch, it will return a new state object.

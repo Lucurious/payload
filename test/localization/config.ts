@@ -1,8 +1,9 @@
 import { fileURLToPath } from 'node:url'
 import path from 'path'
+
+import type { LocalizedPost } from './payload-types.js'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
-import type { LocalizedPost } from './payload-types.js'
 
 import { buildConfigWithDefaults } from '../buildConfigWithDefaults.js'
 import { devUser } from '../credentials.js'
@@ -430,14 +431,7 @@ export default buildConfigWithDefaults({
     console.log('SEED BEGIN')
 
     if (payload.db.name === 'mongoose') {
-      await new Promise((resolve, reject) => {
-        payload.db?.collections[localizedPostsSlug]?.ensureIndexes(function (err) {
-          if (err) {
-            reject(err)
-          }
-          resolve(true)
-        })
-      })
+      await payload.db?.collections[localizedPostsSlug]?.ensureIndexes()
     }
 
     console.log('INDEXES CREATED')

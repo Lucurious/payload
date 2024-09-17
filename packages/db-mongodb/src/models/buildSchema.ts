@@ -1,4 +1,4 @@
-import type { IndexOptions, Schema, SchemaOptions, SchemaTypeOptions } from 'mongoose'
+import type { IndexOptions, Model, Schema, SchemaOptions, SchemaTypeOptions } from 'mongoose'
 import type {
   ArrayField,
   Block,
@@ -112,11 +112,11 @@ const localizeSchema = (
   return schema
 }
 
-export const buildSchema = (
+export const buildSchema = <RawDocType = any, TModelType extends Model<any> = Model<RawDocType>>(
   config: SanitizedConfig,
   configFields: Field[],
   buildSchemaOptions: BuildSchemaOptions = {},
-): Schema => {
+): Schema<RawDocType, TModelType> => {
   const { allowIDField, options } = buildSchemaOptions
   let fields = {}
 
@@ -134,7 +134,7 @@ export const buildSchema = (
     }
   }
 
-  const schema = new mongoose.Schema(fields, options)
+  const schema = new mongoose.Schema<RawDocType, TModelType>(fields, options as any)
 
   schemaFields.forEach((field) => {
     if (fieldIsVirtual(field)) {

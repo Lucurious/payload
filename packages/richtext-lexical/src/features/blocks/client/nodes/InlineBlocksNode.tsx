@@ -7,7 +7,7 @@ import type {
   Spread,
 } from 'lexical'
 
-import ObjectID from 'bson-objectid'
+import { ObjectId } from 'bson'
 import React, { type JSX } from 'react'
 
 import type { SerializedServerInlineBlockNode } from '../../server/nodes/InlineBlocksNode.js'
@@ -64,7 +64,7 @@ export function $createInlineBlockNode(fields: Exclude<InlineBlockFields, 'id'>)
   return new InlineBlockNode({
     fields: {
       ...fields,
-      id: fields?.id || new ObjectID.default().toHexString(),
+      id: fields?.id || new ObjectId().toHexString(),
     },
   })
 }

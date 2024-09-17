@@ -13,7 +13,7 @@ import type { JsonObject } from 'payload'
 import type { JSX } from 'react'
 
 import { DecoratorBlockNode } from '@lexical/react/LexicalDecoratorBlockNode.js'
-import ObjectID from 'bson-objectid'
+import { ObjectId } from 'bson'
 import { deepCopyObjectSimple } from 'payload/shared'
 
 export type BlockFields<TBlockFields extends JsonObject = JsonObject> = {
@@ -125,7 +125,7 @@ export function $createServerBlockNode(fields: Exclude<BlockFields, 'id'>): Serv
   return new ServerBlockNode({
     fields: {
       ...fields,
-      id: fields?.id || new ObjectID.default().toHexString(),
+      id: fields?.id || new ObjectId().toHexString(),
     },
   })
 }

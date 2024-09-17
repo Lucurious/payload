@@ -1,7 +1,7 @@
 'use client'
 import type { EditorConfig, LexicalEditor, LexicalNode } from 'lexical'
 
-import ObjectID from 'bson-objectid'
+import { ObjectId } from 'bson'
 import React, { type JSX } from 'react'
 
 import type { BlockFields, SerializedBlockNode } from '../../server/nodes/BlocksNode.js'
@@ -52,7 +52,7 @@ export function $createBlockNode(fields: Exclude<BlockFields, 'id'>): BlockNode 
   return new BlockNode({
     fields: {
       ...fields,
-      id: fields?.id || new ObjectID.default().toHexString(),
+      id: fields?.id || new ObjectId().toHexString(),
     },
   })
 }

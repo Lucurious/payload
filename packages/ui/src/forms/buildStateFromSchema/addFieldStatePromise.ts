@@ -7,14 +7,11 @@ import type {
   PayloadRequest,
 } from 'payload'
 
-import ObjectIdImport from 'bson-objectid'
+import { ObjectId } from 'bson'
 import { fieldAffectsData, fieldHasSubFields, tabHasName } from 'payload/shared'
 
 import { getFilterOptionsQuery } from './getFilterOptionsQuery.js'
 import { iterateFields } from './iterateFields.js'
-
-const ObjectId = (ObjectIdImport.default ||
-  ObjectIdImport) as unknown as typeof ObjectIdImport.default
 
 export type AddFieldStatePromiseArgs = {
   addErrorPathToParent: (path: string) => void

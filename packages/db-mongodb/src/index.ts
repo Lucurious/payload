@@ -4,7 +4,6 @@ import type { ClientSession, Connection, ConnectOptions } from 'mongoose'
 import type { BaseDatabaseAdapter, DatabaseAdapterObj, Payload } from 'payload'
 
 import fs from 'fs'
-import mongoose from 'mongoose'
 import path from 'path'
 import { createDatabaseAdapter } from 'payload'
 
@@ -142,7 +141,6 @@ export function mongooseAdapter({
 }: Args): DatabaseAdapterObj {
   function adapter({ payload }: { payload: Payload }) {
     const migrationDir = findMigrationDir(migrationDirArg)
-    mongoose.set('strictQuery', false)
 
     return createDatabaseAdapter<MongooseAdapter>({
       name: 'mongoose',

@@ -3,6 +3,8 @@ import type { SanitizedCollectionConfig, SanitizedConfig } from 'payload'
 
 import paginate from 'mongoose-paginate-v2'
 
+import type { CollectionModel } from '../types.js'
+
 import { getBuildQueryPlugin } from '../queries/buildQuery.js'
 import { buildSchema } from './buildSchema.js'
 
@@ -10,7 +12,7 @@ export const buildCollectionSchema = (
   collection: SanitizedCollectionConfig,
   config: SanitizedConfig,
   schemaOptions = {},
-): Schema => {
+): Schema<any, CollectionModel> => {
   const schema = buildSchema(config, collection.fields, {
     draftsEnabled: Boolean(typeof collection?.versions === 'object' && collection.versions.drafts),
     indexSortableFields: config.indexSortableFields,
